@@ -13,12 +13,26 @@ std::vector<int> make_field(unsigned int size)
     return out;
 }
 
-void print_field(std::vector<int> & field)
+void print_field(std::vector<int> field)
 {
     for(auto v : field){
         std::cout << v << std::endl;
     }
 }
+
+class Halver {
+public:
+    Halver(int N){
+        out = new std::vector<int>();
+    }
+    field_t *out;
+    void operator()(int n){
+        out->push_back(n/2);
+    }
+    field_t *get_field(){
+        return out;
+    }
+};
 
 int main(void)
 {
@@ -27,13 +41,12 @@ int main(void)
     field_t out(FIELD_SIZE);
 
 
-    for(field_t::iterator in_it = in.begin(), out_it = out.begin(); in_it != in.end(); in_it++, out_it++){
-        *out_it = *in_it / 2;
-    }
+    Halver h = Halver(FIELD_SIZE);
+    Halver h2 = std::for_each(in.begin(), in.end(), h);
 
     print_field(in);
     std::cout << "=============================================================" << std::endl;
-    print_field(out);
+    print_field(*h2.out);
 
 
     
