@@ -1,6 +1,7 @@
 #include <tbb/tbb.h>
 #include <vector>
 #include <iostream>
+#include <thread>
 
 constexpr int FIELD_SIZE = 10;
 typedef std::vector<int> field_t;
@@ -20,35 +21,24 @@ void print_field(std::vector<int> field)
     }
 }
 
-class Halver {
-public:
-    Halver(int N){
-        out = new std::vector<int>();
-    }
-    field_t *out;
-    void operator()(int n){
-        out->push_back(n/2);
-    }
-    field_t *get_field(){
-        return out;
-    }
-};
-
 int main(void)
 {
     field_t in = make_field(FIELD_SIZE);
-
     field_t out(FIELD_SIZE);
 
+    tbb::parallel_for( tbb::blocked_range<int>(0,in.size()),
+                       [&](tbb::blocked_range<int> r)
+    {
+        for (int i=r.begin(); i<r.end(); ++i)
+        {
+            out[i] = in[i]/2;
+        }
+    });
 
-    Halver h = Halver(FIELD_SIZE);
-    Halver h2 = std::for_each(in.begin(), in.end(), h);
 
     print_field(in);
     std::cout << "=============================================================" << std::endl;
-    print_field(*h2.out);
+    print_field(out);
 
-
-    
     return 0;
 }
