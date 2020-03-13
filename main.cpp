@@ -21,6 +21,12 @@ void print_field(std::vector<int> field)
     }
 }
 
+struct Operation {
+    void operator()(int &i) const {
+        std::cout << i/2 << std::endl;
+    }
+};
+
 int main(void)
 {
     field_t in = make_field(FIELD_SIZE);
@@ -35,6 +41,12 @@ int main(void)
         }
     });
 
+    Operation print_half;
+
+    // Works but we have no iteration index
+    // so we can't control where to put things in
+    // the output.
+    tbb::parallel_for_each(in.begin(), in.end(), print_half);
 
     print_field(in);
     std::cout << "=============================================================" << std::endl;
