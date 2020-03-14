@@ -3,11 +3,9 @@ cmake_minimum_required(VERSION 3.10)
 project(tbb_test CXX)
 set(CMAKE_CXX_STANDARD 11)
 
-
-
-if(APPLE)
+if(${APPLE})
     find_package(TBB REQUIRED)
-    set(TBB_LIBRARY TBB:tbb)
+    set(TBB_LIBRARY TBB::tbb)
 else()
     set(TBB_LIBRARY tbb)
 endif()
