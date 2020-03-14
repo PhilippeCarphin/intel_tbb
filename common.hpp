@@ -1,7 +1,7 @@
-constexpr int FIELD_SIZE = 10;
-constexpr int NB_LEVELS = 7;
-constexpr int X_DIM = 5;
-constexpr int Y_DIM = 5;
+constexpr int FIELD_SIZE = 100000000;
+constexpr int NB_LEVELS = 700;
+constexpr int X_DIM = 500;
+constexpr int Y_DIM = 500;
 typedef std::vector<int> field_t;
 class Matrix 
 {

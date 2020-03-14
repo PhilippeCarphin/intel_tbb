@@ -27,9 +27,9 @@ int main(void)
         }
     });
 
-    print_field(in);
-    std::cout << "=============================================================" << std::endl;
-    print_field(out);
+    // print_field(in);
+    // std::cout << "=============================================================" << std::endl;
+    // print_field(out);
 
     return 0;
 }
